@@ -4,11 +4,11 @@ import './Header.module.css';
 
 const HeaderCartButton =()=>{
     return(
-        <div>
+        <button>
         <span><CartIcon></CartIcon></span>
-        <span>my cart</span>
+        <span>My Cart</span>
         <span>3</span>
-        </div>
+        </button>
     )
 }
 export default HeaderCartButton ;
