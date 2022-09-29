@@ -3,7 +3,7 @@ import Input from '../../UI/Input.js';
 import classes from './MealItemForm.module.css'
 const MealitemForm=()=>{
     return(
-        <form>
+        <form className={classes.form}>
             <Input
     label='Amount'
     input={{
@@ -16,7 +16,7 @@ const MealitemForm=()=>{
     }}
 />
             <input/>
-            <button>Add</button>
+            <button>+ Add</button>
         </form>
     )
 }
