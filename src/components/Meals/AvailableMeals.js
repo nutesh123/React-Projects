@@ -1,4 +1,5 @@
 import Mealitem from './mealItem/Mealitem.js'
+import classes from './AvailableMeals.module.css';
 
 const DUMMY_MEALS = [
     {
@@ -36,7 +37,7 @@ const DUMMY_MEALS = [
     price={meal.price}/>
     ))
     return(
-        <section>
+        <section className={classes.meals}>
 <ul>{mealslist}</ul>
         </section>
     )

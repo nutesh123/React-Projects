@@ -1,13 +1,15 @@
 
 import CartIcon from '../Cart/Carticon';
-import './Header.module.css';
+import classes from  './HeaderCartButton.module.css';
 
 const HeaderCartButton =()=>{
     return(
         <button>
-        <span><CartIcon></CartIcon></span>
+        <span className={classes.icon}>
+            <CartIcon/>
+        </span>
         <span>My Cart</span>
-        <span>3</span>
+        <span className={classes.badge}>3</span>
         </button>
     )
 }
