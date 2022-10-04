@@ -10,14 +10,13 @@ function Header (props){
             <header className={classes.header}>
               <h1> React Meals</h1>
 
-              <HeaderCartButton onclick={props.onshowCart}/>
+              <HeaderCartButton onClick={props.onShowCart}/>
             
             </header>
             <div className={classes['main-image']}>
             <img src={dishes}></img>
-            <MealsSummery></MealsSummery>
+        
             </div>
-            <MealsSummery></MealsSummery>
         </Fragment>
     )
 }

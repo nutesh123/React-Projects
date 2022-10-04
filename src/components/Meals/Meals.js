@@ -6,7 +6,7 @@ import MealsSummery from "./MealsSummery";
 const Meals =() =>{
     return(
         <Fragment>
-            <MealsSummery></MealsSummery>
+        <MealsSummery></MealsSummery>
             <AvailableMeals></AvailableMeals>
         </Fragment>
 
