@@ -1,15 +1,16 @@
 import Cart from './Cart';
 import classes from  './Header.module.css'
+import App from '../../App';
 
-
-const Header = ()=>{
+const Header = (props)=>{
 
   return(
     <div>
+
     <div className={classes.black}>
-      <h3>HOME    STORE   ABOUT</h3>
-      <button className={classes.cart}>Cart</button>
-      <Cart></Cart>
+      <h3>HOME    <span onClick={() => props.handleshow(false)}>STORE</span>   ABOUT</h3>
+      <div className={classes.cart} onClick={() => props.handleshow(true)}><button>Cart {props.count}</button></div>
+    
     </div>
     
     <div className={classes.header}>

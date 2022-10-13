@@ -1,4 +1,4 @@
-import classes from  './App.module.css'
+
 import Header from './components/HEADER/Header';
 import Music from './components/shopping item/Music';
 import BottumHeader from './components/HEADER/BottumHeader';
@@ -32,19 +32,37 @@ const App = (props)=>{
       }
   ])
 
+
   const [cart,setcart]=useState([]);
- 
   const addtocart=(data)=>{
-  console.log(cart)
-    setcart([...cart ])
+    setcart([...cart,{...data , quantity : 1}])
   }
-  console.log(cart)
+
+
+  const [showCart, setShowCart] = useState(false)
+ const handleshow=(value)=>{
+  setShowCart(value)
+ }
+  
+
+  const cartitems= cart.map((arr)=>(
+    <Cart 
+    title={arr.title}
+    price={arr.price}
+    imageUrl={arr.imageUrl}/>
+  ))
+
+
   return(
     <div>
-<Header></Header>
+<Header count={cart.length}
+handleshow={handleshow}></Header>
 
-{cart.length>0 && < Cart  cart={cart} ></Cart> }
+{
+showCart ? 
+< Cart  cart={cartitems} ></Cart> :
 <Music itemlist={items} addtocart={addtocart}/>
+}
 
 <button>See the Cart </button>
 <BottumHeader></BottumHeader>
