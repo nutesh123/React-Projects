@@ -3,14 +3,13 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.center{
+.centeritems{
     position: relative;
     display:flex ;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    justify-content: center;
-    
+    padding-bottom: 10mm;
 }
 .header {
     top:0;
@@ -28,4 +27,14 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1cm;
   }
-  
+  .buttonCss{
+    background-color: aqua;
+    border-radius: 1mm;
+    border-color: aqua;
+  }
+  .center{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+    

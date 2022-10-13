@@ -44,15 +44,6 @@ const App = (props)=>{
   setShowCart(value)
  }
   
-
-  const cartitems= cart.map((arr)=>(
-    <Cart 
-    title={arr.title}
-    price={arr.price}
-    imageUrl={arr.imageUrl}/>
-  ))
-
-
   return(
     <div>
 <Header count={cart.length}
@@ -60,7 +51,7 @@ handleshow={handleshow}></Header>
 
 {
 showCart ? 
-< Cart  cart={cartitems} ></Cart> :
+< Cart  cart={cart} ></Cart> :
 <Music itemlist={items} addtocart={addtocart}/>
 }
 
