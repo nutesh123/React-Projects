@@ -33,12 +33,12 @@ const App = (props)=>{
   ])
 
   const [cart,setcart]=useState([]);
-  console.log(cart)
+ 
   const addtocart=(data)=>{
   console.log(cart)
     setcart([...cart ])
   }
-
+  console.log(cart)
   return(
     <div>
 <Header></Header>

@@ -6,7 +6,7 @@ const Cart =(props)=>{
     console.log(props.cart)
     return(
         <div>
-           
+           non
         </div>
     )
      

@@ -18,7 +18,7 @@ function Music(props)
                        <p>${item.price}</p>
                          <button onClick={()=>{props.addtocart(item)}
                             }
-                         >Add to Cart</button>
+                         >Add To Cart</button>
                     </div>
                 )
              })

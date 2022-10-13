@@ -8,7 +8,7 @@ const Header = ()=>{
     <div>
     <div className={classes.black}>
       <h3>HOME    STORE   ABOUT</h3>
-      <button className={classes.cart}>cart</button>
+      <button className={classes.cart}>Cart</button>
       <Cart></Cart>
     </div>
     
