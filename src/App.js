@@ -1,29 +1,54 @@
-import { Fragment, useState } from 'react';
+import classes from  './App.module.css'
+import Header from './components/HEADER/Header';
+import Music from './components/shopping item/Music';
+import BottumHeader from './components/HEADER/BottumHeader';
+import Merch from './components/shopping item/Merch';
+import Cart from './components/HEADER/Cart';
+import { useState } from 'react';
+import About from './components/HEADER/About';
 
-import Header from './components/Layout/Header';
-import Meals from './components/Meals/Meals';
-import Cart from './components/Cart/Cart';
+const App = (props)=>{
 
-function App() {
-  const [cartIsShown, setCartIsShown] = useState(false);
+  const [items,setitems]=useState([
+    {
+      title: 'Colors', 
+      price: 100,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png', 
+      },
+      { 
+      title: 'Black and white Colors',
+      price: 50,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+      },
+      {
+      title: 'Yellow and Black Colors', 
+      price: 70,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
+      },
+      {
+      title: 'Blue Color',
+      price: 100,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
+      }
+  ])
 
-  const showCartHandler = () => {
-    setCartIsShown(true);
-  };
+  const [cart,setcart]=useState([]);
+  console.log(cart)
+  const addtocart=(data)=>{
+  console.log(cart)
+    setcart([...cart ])
+  }
 
-  const hideCartHandler = () => {
-    setCartIsShown(false);
-  };
+  return(
+    <div>
+<Header></Header>
 
-  return (
-    <Fragment>
-      {cartIsShown && <Cart onClose={hideCartHandler} />}
-      <Header onShowCart={showCartHandler} />
-      <main>
-        <Meals />
-      </main>
-    </Fragment>
-  );
+{cart.length>0 && < Cart  cart={cart} ></Cart> }
+<Music itemlist={items} addtocart={addtocart}/>
+
+<button>See the Cart </button>
+<BottumHeader></BottumHeader>
+    </div>
+  )
 }
-
-export default App;
+export default App ;
