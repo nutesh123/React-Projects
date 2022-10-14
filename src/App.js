@@ -1,28 +1,35 @@
-import { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
-import Header from './components/Layout/Header';
-import Meals from './components/Meals/Meals';
-import Cart from './components/Cart/Cart';
+import MoviesList from './components/MoviesList';
+import './App.css';
 
 function App() {
-  const [cartIsShown, setCartIsShown] = useState(false);
+  const [movies,setmovies]=useState([])
 
-  const showCartHandler = () => {
-    setCartIsShown(true);
-  };
-
-  const hideCartHandler = () => {
-    setCartIsShown(false);
-  };
+  function fetchmoviesHandler(){
+    fetch('https://swapi.dev/api/films/').then(response=>{
+      return response.json();
+    }).then(data => {
+      const transformedMovies = data.results.map(moviedata =>{
+        return{
+          id:moviedata.episode_id,
+          title:moviedata.title,
+          openingText:moviedata.opening_crawl
+        }
+      })
+      setmovies(transformedMovies)
+    })
+  }
 
   return (
-    <Fragment>
-      {cartIsShown && <Cart onClose={hideCartHandler} />}
-      <Header onShowCart={showCartHandler} />
-      <main>
-        <Meals />
-      </main>
-    </Fragment>
+    <React.Fragment>
+      <section>
+        <button onClick={fetchmoviesHandler}>Fetch Movies</button>
+      </section>
+      <section>
+        <MoviesList movies={movies} />
+      </section>
+    </React.Fragment>
   );
 }
 
