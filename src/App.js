@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 import MoviesList from './components/MoviesList';
 import './App.css';
@@ -6,6 +6,10 @@ import './App.css';
 function App() {
   const [movies,setmovies]=useState([])
   const [isloading ,setisloading]=useState(false)
+
+  useEffect(()=>{
+    fetchmoviesHandler()
+  },[])
 
   async function fetchmoviesHandler(){
     setisloading(true)
