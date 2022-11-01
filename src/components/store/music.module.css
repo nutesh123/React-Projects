@@ -10,6 +10,8 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 10mm;
+    top: 10px;
+    float: left;
 }
 .header {
     top:0;

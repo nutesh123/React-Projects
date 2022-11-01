@@ -1,15 +1,15 @@
 
-import Header from './components/HEADER/Header';
-import Music from './components/shopping item/Music';
-import BottumHeader from './components/HEADER/BottumHeader';
-import Merch from './components/shopping item/Merch';
-import Cart from './components/HEADER/Cart';
-import { useState } from 'react';
 import About from './components/HEADER/About';
+import { Routes,Route ,Link} from 'react-router-dom';
+import Home from './components/HEADER/Home';
+import classes from './App.module.css'
+import ContactUs from './components/HEADER/ContactUs';
+import ProductPage from './components/store/ProductsPage';
+import ProductDetails from './components/store/ProductDetails';
 
 const App = (props)=>{
 
-  const [items,setitems]=useState([
+  const items=[
     {
       title: 'Colors', 
       price: 100,
@@ -30,33 +30,24 @@ const App = (props)=>{
       price: 100,
       imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
       }
-  ])
+  ]
 
-
-  const [cart,setcart]=useState([]);
-  const addtocart=(data)=>{
-    setcart([...cart,{...data , quantity : 1}])
-  }
-
-
-  const [showCart, setShowCart] = useState(false)
- const handleshow=(value)=>{
-  setShowCart(value)
- }
-  
   return(
     <div>
-<Header count={cart.length}
-handleshow={handleshow}></Header>
-
-{
-showCart ? 
-< Cart  cart={cart} ></Cart> :
-<Music itemlist={items} addtocart={addtocart}/>
-}
-
-<button>See the Cart </button>
-<BottumHeader></BottumHeader>
+      <div className={classes.black}>
+      <Link to='/'>home</Link>
+      <Link to='/about'>About us</Link>
+      <Link to='/store'> store</Link>
+      <Link to='/contact'>Contact Us</Link>
+      </div>
+      <Routes>
+        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/about' element={<About></About>}></Route>
+        <Route path='/contact' element={<ContactUs/>}></Route>
+         <Route path='/store' element={<ProductPage itemlist={items}/>}></Route>
+         <Route path='/store/:urlName' element={<ProductDetails data={items}/>}>
+         </Route>
+      </Routes>
     </div>
   )
 }

@@ -1,13 +1,14 @@
 import { ReactDOM } from "react";
 import React from "react";
-import App from "../../App";
+import { Link } from "react-router-dom";
 import classes from './music.module.css'
-
-
-function Music(props)
+import Header from "../HEADER/Header";
+import BottumHeader from "../HEADER/BottumHeader";
+function ProductPage(props)
 {
     return(
      <div>
+        <Header></Header>
      <h2 className={classes.center}>Music</h2>
         <div className={classes.flex}>
            
@@ -15,8 +16,8 @@ function Music(props)
                 return(
                     <div className={classes.centeritems}>
                          <img src={item.imageUrl}/> 
-                       <p>{item.title}</p> 
-                       <p>${item.price}</p>
+                       <div><Link to={`/store/${item.title}`}>{item.title}</Link></div> 
+                       <div>${item.price}</div>
                          <button className={classes.buttonCss} onClick={()=>{props.addtocart(item)}
                             }
                          >Add To Cart</button>
@@ -25,7 +26,8 @@ function Music(props)
              })
             }
             </div>
+            <BottumHeader></BottumHeader>
             </div>
     )
 }
-export default Music ;
+export default ProductPage ;
