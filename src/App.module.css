@@ -4,14 +4,18 @@
   display:flex ;
   flex-wrap: wrap;
   justify-content: center;
-  min-height: 4vh;
-  display: flex;
-  flex-direction: column;
+  min-height: 6vh;
   align-items: center;
   justify-content: center;
-  font-size: calc(8px + 1vmin);
+  font-size: calc(10px + 1vmin);
   color: white;
-  word-spacing: 15mm;
+  gap: 10px;
+
+}
+
+a{
+  text-decoration: none;
+  color:white ;
 }
 .header {
     position: fixed;

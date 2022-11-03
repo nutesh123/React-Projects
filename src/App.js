@@ -6,7 +6,8 @@ import classes from './App.module.css'
 import ContactUs from './components/HEADER/ContactUs';
 import ProductPage from './components/store/ProductsPage';
 import ProductDetails from './components/store/ProductDetails';
-
+import SignUp from './components/Login&logout/SignUp';
+import { useState } from 'react';
 const App = (props)=>{
 
   const items=[
@@ -31,14 +32,29 @@ const App = (props)=>{
       imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
       }
   ]
+const [show,setshow]=useState(false)
+function clickhandler(){
 
+  if( '/store'=== window.location.pathname){
+  setshow(true)
+  }
+else{
+  setshow(false)
+}
+}
+
+console.log(window.location.pathname);
+console.log(window.location.href);  
   return(
     <div>
       <div className={classes.black}>
       <Link to='/'>home</Link>
       <Link to='/about'>About us</Link>
-      <Link to='/store'> store</Link>
+      <Link to='/store' onClick={clickhandler}> store 
+      { show && <Link>Cart</Link>}
+       </Link>
       <Link to='/contact'>Contact Us</Link>
+      <Link to='/login'>LogIn</Link>
       </div>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
@@ -47,6 +63,8 @@ const App = (props)=>{
          <Route path='/store' element={<ProductPage itemlist={items}/>}></Route>
          <Route path='/store/:urlName' element={<ProductDetails data={items}/>}>
          </Route>
+         <Route path='/login' element={<SignUp/>}></Route>
+         
       </Routes>
     </div>
   )
