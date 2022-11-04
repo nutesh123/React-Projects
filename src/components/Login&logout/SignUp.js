@@ -21,12 +21,16 @@ function SignUp() {
         const enteredPassword = passwordInputRef.current.value;
     
         // optional: Add validation
-    
-        setIsLoading(true);   
+        setIsLoading(true);
+        let url;
         if (isLogin) {
+          url =
+            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBtoD6QjedIKtoqprTqP0WpkOSFr2iPMDw';
         } else {
-          fetch(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBtoD6QjedIKtoqprTqP0WpkOSFr2iPMDw',
+          url =
+            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBtoD6QjedIKtoqprTqP0WpkOSFr2iPMDw';
+        }
+        fetch(url,
             {
               method: 'POST',
               body: JSON.stringify({
@@ -48,13 +52,18 @@ function SignUp() {
                  if (data && data.error && data.error.message) {
                   errorMessage = data.error.message;
                  }
-                alert(errorMessage);
-              });
-            }
-          });
-        }
-    }
-    
+          
+                 throw new Error(errorMessage);
+                });
+              }
+            })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((err) => {
+              alert(err.message);
+            });
+        };
   return (
     <section className={classes.auth}>
     <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>

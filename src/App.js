@@ -7,7 +7,7 @@ import ContactUs from './components/HEADER/ContactUs';
 import ProductPage from './components/store/ProductsPage';
 import ProductDetails from './components/store/ProductDetails';
 import SignUp from './components/Login&logout/SignUp';
-import { useState } from 'react';
+import { useState ,useEffect } from 'react';
 const App = (props)=>{
 
   const items=[
@@ -33,15 +33,19 @@ const App = (props)=>{
       }
   ]
 const [show,setshow]=useState(false)
-function clickhandler(){
 
-  if( '/store'=== window.location.pathname){
+function clickhandler(){
+  if(true ){
   setshow(true)
   }
 else{
-  setshow(false)
+  setshow(true)
 }
 }
+
+// useEffect(()=>{
+//   setshow(false)
+// },['/store'])
 
 console.log(window.location.pathname);
 console.log(window.location.href);  
@@ -50,7 +54,7 @@ console.log(window.location.href);
       <div className={classes.black}>
       <Link to='/'>home</Link>
       <Link to='/about'>About us</Link>
-      <Link to='/store' onClick={clickhandler}> store 
+      <Link to='/store' clickhandler={clickhandler}> store 
       { show && <Link>Cart</Link>}
        </Link>
       <Link to='/contact'>Contact Us</Link>
