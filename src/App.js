@@ -1,44 +1,76 @@
-import React, { useState,useEffect } from 'react';
 
-import MoviesList from './components/MoviesList';
-import './App.css';
+import About from './components/HEADER/About';
+import { Routes,Route ,Link} from 'react-router-dom';
+import Home from './components/HEADER/Home';
+import classes from './App.module.css'
+import ContactUs from './components/HEADER/ContactUs';
+import ProductPage from './components/store/ProductsPage';
+import ProductDetails from './components/store/ProductDetails';
+import SignUp from './components/Login&logout/SignUp';
+import { useState ,useEffect } from 'react';
+const App = (props)=>{
 
-function App() {
-  const [movies,setmovies]=useState([])
-  const [isloading ,setisloading]=useState(false)
+  const items=[
+    {
+      title: 'Colors', 
+      price: 100,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png', 
+      },
+      { 
+      title: 'Black and white Colors',
+      price: 50,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+      },
+      {
+      title: 'Yellow and Black Colors', 
+      price: 70,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
+      },
+      {
+      title: 'Blue Color',
+      price: 100,
+      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
+      }
+  ]
+const [show,setshow]=useState(false)
 
-  useEffect(()=>{
-    fetchmoviesHandler()
-  },[])
-
-  async function fetchmoviesHandler(){
-    setisloading(true)
-   const response= await fetch('https://swapi.dev/api/films')
-   const data = await response.json() ; 
-   
-      const transformedMovies = data.results.map(moviedata =>{
-        return{
-          id:moviedata.episode_id,
-          title:moviedata.title,
-          openingText:moviedata.opening_crawl
-        }
-      })
-      setmovies(transformedMovies)
-      setisloading(false)
-    }
-  
-
-  return (
-    <React.Fragment>
-      <section>
-        <button onClick={fetchmoviesHandler}>Fetch Movies</button>
-      </section>
-      <section>
-       {!isloading && <MoviesList movies={movies} />}
-      {isloading && <p>loding ....</p>}
-      </section>
-    </React.Fragment>
-  );
+function clickhandler(){
+  if(true ){
+  setshow(true)
   }
+else{
+  setshow(true)
+}
+}
 
-export default App;
+// useEffect(()=>{
+//   setshow(false)
+// },['/store'])
+
+console.log(window.location.pathname);
+console.log(window.location.href);  
+  return(
+    <div>
+      <div className={classes.black}>
+      <Link to='/'>home</Link>
+      <Link to='/about'>About us</Link>
+      <Link to='/store' clickhandler={clickhandler}> store 
+      { show && <Link>Cart</Link>}
+       </Link>
+      <Link to='/contact'>Contact Us</Link>
+      <Link to='/login'>LogIn</Link>
+      </div>
+      <Routes>
+        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/about' element={<About></About>}></Route>
+        <Route path='/contact' element={<ContactUs/>}></Route>
+         <Route path='/store' element={<ProductPage itemlist={items}/>}></Route>
+         <Route path='/store/:urlName' element={<ProductDetails data={items}/>}>
+         </Route>
+         <Route path='/login' element={<SignUp/>}></Route>
+         
+      </Routes>
+    </div>
+  )
+}
+export default App ;

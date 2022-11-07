@@ -1,0 +1,27 @@
+.button{
+    background-color: orange;
+    border-radius: 1mm;
+    border-style: none;
+    width: 9cm;
+    height: 1cm;
+    align-items: center;
+    font-size: large;
+}
+
+.div{
+    background-color:gray;
+    width: 40%;
+    align-items: center;
+    height: 21rem;
+    border-radius: 3mm;
+    border-style: none;
+    padding-right: 1cm;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 1cm;
+    margin-bottom: 1cm;
+    margin-left: 9.5cm;
+    
+}
