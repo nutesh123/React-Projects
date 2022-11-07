@@ -1,76 +1,65 @@
+import React, { useState, useEffect, useCallback } from 'react';
 
-import About from './components/HEADER/About';
-import { Routes,Route ,Link} from 'react-router-dom';
-import Home from './components/HEADER/Home';
-import classes from './App.module.css'
-import ContactUs from './components/HEADER/ContactUs';
-import ProductPage from './components/store/ProductsPage';
-import ProductDetails from './components/store/ProductDetails';
-import SignUp from './components/Login&logout/SignUp';
-import { useState ,useEffect } from 'react';
-const App = (props)=>{
+import MoviesList from './components/MoviesList';
+import './App.css';
 
-  const items=[
-    {
-      title: 'Colors', 
-      price: 100,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png', 
-      },
-      { 
-      title: 'Black and white Colors',
-      price: 50,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-      },
-      {
-      title: 'Yellow and Black Colors', 
-      price: 70,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-      },
-      {
-      title: 'Blue Color',
-      price: 100,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
+function App() {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchMoviesHandler = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('https://swapi.dev/api/films/');
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
       }
-  ]
-const [show,setshow]=useState(false)
 
-function clickhandler(){
-  if(true ){
-  setshow(true)
+      const data = await response.json();
+
+      const transformedMovies = data.results.map((movieData) => {
+        return {
+          id: movieData.episode_id,
+          title: movieData.title,
+          openingText: movieData.opening_crawl,
+          releaseDate: movieData.release_date,
+        };
+      });
+      setMovies(transformedMovies);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
+
+  let content = <p>Found no movies.</p>;
+
+  if (movies.length > 0) {
+    content = <MoviesList movies={movies} />;
   }
-else{
-  setshow(true)
-}
+
+  if (error) {
+    content = <p>{error}</p>;
+  }
+
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  }
+
+  return (
+    <React.Fragment>
+      <section>
+        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+      </section>
+      <section>{content}</section>
+    </React.Fragment>
+  );
 }
 
-// useEffect(()=>{
-//   setshow(false)
-// },['/store'])
-
-console.log(window.location.pathname);
-console.log(window.location.href);  
-  return(
-    <div>
-      <div className={classes.black}>
-      <Link to='/'>home</Link>
-      <Link to='/about'>About us</Link>
-      <Link to='/store' clickhandler={clickhandler}> store 
-      { show && <Link>Cart</Link>}
-       </Link>
-      <Link to='/contact'>Contact Us</Link>
-      <Link to='/login'>LogIn</Link>
-      </div>
-      <Routes>
-        <Route path='/' element={<Home></Home>}></Route>
-        <Route path='/about' element={<About></About>}></Route>
-        <Route path='/contact' element={<ContactUs/>}></Route>
-         <Route path='/store' element={<ProductPage itemlist={items}/>}></Route>
-         <Route path='/store/:urlName' element={<ProductDetails data={items}/>}>
-         </Route>
-         <Route path='/login' element={<SignUp/>}></Route>
-         
-      </Routes>
-    </div>
-  )
-}
-export default App ;
+export default App;
