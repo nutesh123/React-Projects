@@ -54,7 +54,6 @@ function SignUp() {
               // ...
               return res.json() ;
               console.log("if res.ok")
-              console.log(res)
             } else {
               console.log("kuchh bhi else")
               return res.json().then((data) => {
