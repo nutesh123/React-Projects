@@ -1,7 +1,11 @@
 import React from 'react'
 import classes from './login.module.css'
-import { useState ,useRef } from 'react';
+import { useState ,useRef ,useContext } from 'react';
+import AuthContext from './Context';
+
 function SignUp() {
+
+  const authCtx = useContext(AuthContext);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -30,6 +34,7 @@ function SignUp() {
           url =
             'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBtoD6QjedIKtoqprTqP0WpkOSFr2iPMDw';
         }
+        
         fetch(url,
             {
               method: 'POST',
@@ -43,10 +48,15 @@ function SignUp() {
               },
             }
           ).then((res) => {
+            console.log("kuchh bhi", res)
             setIsLoading(false);
             if (res.ok) {
               // ...
+              return res.json() ;
+              console.log("if res.ok")
+              console.log(res)
             } else {
+              console.log("kuchh bhi else")
               return res.json().then((data) => {
                 let errorMessage = 'Authentication failed!';
                  if (data && data.error && data.error.message) {
@@ -58,7 +68,9 @@ function SignUp() {
               }
             })
             .then((data) => {
-              console.log(data);
+              console.log(data)
+              authCtx.login(data.idToken);
+              
             })
             .catch((err) => {
               alert(err.message);

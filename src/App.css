@@ -1,4 +1,33 @@
-section {
+.navbar1{
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.navbar__content{
+  display: flex;
+  flex:2;
+  justify-content: space-evenly;
+  padding: 0px 20px;
+}
+.navbar__cart{
+  display: flex;
+   flex: 1;
+   justify-content: flex-end;
+   padding-right: 1cm;
+}
+.navbar__cart-login,
+.navbar__cart-logout
+{
+  padding-right: 25px;
+}
+
+
+
+/* section {
   margin: 1rem auto;
   width: 90%;
   max-width: 40rem;
@@ -27,3 +56,8 @@ button:active {
   background-color: #460897;
   border-color: #460897;
 }
+
+.cart{
+  position:absolute;
+  right: 0px ;
+    } */

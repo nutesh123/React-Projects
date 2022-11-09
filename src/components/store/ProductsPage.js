@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import classes from './music.module.css'
 import Header from "../HEADER/Header";
 import BottumHeader from "../HEADER/BottumHeader";
+import Cart from "../Cart/Cart";
 function ProductPage(props)
 {
     return(

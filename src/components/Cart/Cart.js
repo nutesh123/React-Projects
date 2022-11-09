@@ -1,11 +1,11 @@
 import { ReactDOM } from 'react'
 import React from 'react'
-import classes from './Header.module.css'
 import styles from'./cart.module.css'
+import App from '../../App'
 
 const Cart =(props)=>{
     
-             console.log(`inside Cart`, props.cart);
+            //  console.log(`inside Cart`, props.cart);
   return (
     <div className={styles.cartCss}>
      <h1>Cart Item</h1>

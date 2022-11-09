@@ -1,76 +1,104 @@
+import AuthContext from "./components/Login&logout/Context";
+import About from "./components/HEADER/About";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from "./components/HEADER/Home";
+import classes from "./App.module.css";
+import "./App.css";
+import ContactUs from "./components/HEADER/ContactUs";
+import ProductPage from "./components/store/ProductsPage";
+import ProductDetails from "./components/store/ProductDetails";
+import SignUp from "./components/Login&logout/SignUp";
+import { useState, useEffect, useContext } from "react";
+import Cart from "./components/Cart/Cart";
 
-import About from './components/HEADER/About';
-import { Routes,Route ,Link} from 'react-router-dom';
-import Home from './components/HEADER/Home';
-import classes from './App.module.css'
-import ContactUs from './components/HEADER/ContactUs';
-import ProductPage from './components/store/ProductsPage';
-import ProductDetails from './components/store/ProductDetails';
-import SignUp from './components/Login&logout/SignUp';
-import { useState ,useEffect } from 'react';
-const App = (props)=>{
 
-  const items=[
+const App = (props) => {
+
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
+
+  const items = [
     {
-      title: 'Colors', 
+      title: "Colors",
       price: 100,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png', 
-      },
-      { 
-      title: 'Black and white Colors',
+      imageUrl:
+        "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
+    },
+    {
+      title: "Black and white Colors",
       price: 50,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-      },
-      {
-      title: 'Yellow and Black Colors', 
+      imageUrl:
+        "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
+    },
+    {
+      title: "Yellow and Black Colors",
       price: 70,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-      },
-      {
-      title: 'Blue Color',
+      imageUrl:
+        "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
+    },
+    {
+      title: "Blue Color",
       price: 100,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-      }
-  ]
-const [show,setshow]=useState(false)
+      imageUrl:
+        "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
+    },
+  ];
+  const [show, setshow] = useState(false);
 
-function clickhandler(){
-  if(true ){
-  setshow(true)
-  }
-else{
-  setshow(true)
-}
-}
+  const [cart, setcart] = useState([]);
+  const addtocart = (data) => {
+    setcart([...cart, { ...data, quantity: 1 }]);
+  };
 
-// useEffect(()=>{
-//   setshow(false)
-// },['/store'])
+  const cartitems = cart.map((arr) => (
+    <Cart title={arr.title} price={arr.price} imageUrl={arr.imageUrl} />
+  ));
 
-console.log(window.location.pathname);
-console.log(window.location.href);  
-  return(
+  const changestate = () => {
+    setshow(false);
+  };
+  const changestate1 = () => {
+    setshow(!show);
+  };
+
+  return (
     <div>
-      <div className={classes.black}>
-      <Link to='/'>home</Link>
-      <Link to='/about'>About us</Link>
-      <Link to='/store' clickhandler={clickhandler}> store 
-      { show && <Link>Cart</Link>}
-       </Link>
-      <Link to='/contact'>Contact Us</Link>
-      <Link to='/login'>LogIn</Link>
-      </div>
+        { isLoggedIn && 
+          <div  className="navbar1">
+            <div  onClick={changestate} className="navbar1">
+              <Link to="/">home</Link>
+              <Link to="/about">About us</Link>
+              <Link to="/contact">Contact Us</Link>
+            </div>
+            <Link to='/store' onClick={changestate1}> store </Link>
+            {show && <Link to="/cart">Cart</Link>}
+            <Link to="/logout" className="navbar__cart-logout">Logout</Link>
+              </div> 
+              }
+              {!isLoggedIn && <Link to='/login' className="navbar__cart-login">LogIn</Link>}
+            {/* <div className="navbar__cart">
+              {!isLoggedIn && <Link to='/login' className="navbar__cart-login">LogIn</Link>}
+              <Link to="/logout" className="navbar__cart-logout">Logout</Link>
+              {show && <Link to="/cart">Cart</Link>}
+            </div> */}
+       
       <Routes>
-        <Route path='/' element={<Home></Home>}></Route>
-        <Route path='/about' element={<About></About>}></Route>
-        <Route path='/contact' element={<ContactUs/>}></Route>
-         <Route path='/store' element={<ProductPage itemlist={items}/>}></Route>
-         <Route path='/store/:urlName' element={<ProductDetails data={items}/>}>
-         </Route>
-         <Route path='/login' element={<SignUp/>}></Route>
-         
+        <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/about" element={<About></About>}></Route>
+        <Route path="/contact" element={<ContactUs />}></Route>
+        <Route
+          path="/store"
+          element={<ProductPage itemlist={items} addtocart={addtocart} />}
+        ></Route>
+        <Route
+          path="/store/:urlName"
+          element={<ProductDetails data={items} addtocart={addtocart} />}
+        ></Route>
+        <Route path="/login" element={<SignUp />}></Route>
+        <Route path="/cart" element={<Cart cart={cartitems}></Cart>} />
       </Routes>
-    </div>
+
+      </div>
   )
-}
-export default App ;
+};
+export default App;
