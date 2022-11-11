@@ -1,6 +1,6 @@
 import AuthContext from "./components/Login&logout/Context";
 import About from "./components/HEADER/About";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link ,Redirect } from "react-router-dom";
 import Home from "./components/HEADER/Home";
 import classes from "./App.module.css";
 import "./App.css";
@@ -10,7 +10,6 @@ import ProductDetails from "./components/store/ProductDetails";
 import SignUp from "./components/Login&logout/SignUp";
 import { useState, useEffect, useContext } from "react";
 import Cart from "./components/Cart/Cart";
-
 
 const App = (props) => {
 
@@ -58,22 +57,27 @@ const App = (props) => {
     setshow(false);
   };
   const changestate1 = () => {
-    setshow(!show);
+    setshow(true);
   };
 
+  const logouthandler = () => {
+    authCtx.logout()
+  };
+   
   return (
     <div>
-        { isLoggedIn && 
+        {!isLoggedIn && 
           <div  className="navbar1">
             <div  onClick={changestate} className="navbar1">
               <Link to="/">home</Link>
               <Link to="/about">About us</Link>
               <Link to="/contact">Contact Us</Link>
             </div>
-            
+
             <Link to='/store' onClick={changestate1}> store </Link>
             {show && <Link to="/cart">Cart</Link>}
-            <Link to="/logout" className="navbar__cart-logout">Logout</Link>
+            {/* <button onClick={logouthandler} className="navbar__cart-logout">LogOut</button> */}
+            <Link to="/logout"  onClick={logouthandler} className="navbar__cart-logout" >Logout</Link>
               </div> 
               }
               {!isLoggedIn && <Link to='/login' className="navbar__cart-login">LogIn</Link>}
@@ -87,15 +91,14 @@ const App = (props) => {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/about" element={<About></About>}></Route>
         <Route path="/contact" element={<ContactUs />}></Route>
-        <Route
-          path="/store"
-          element={<ProductPage itemlist={items} addtocart={addtocart} />}
-        ></Route>
+        {/* <Route path="/store" element={ isLoggedIn ? <ProductPage itemlist={items} addtocart={addtocart} />:<Redirect to="/login"/>}
+        ></Route> */}
         <Route
           path="/store/:urlName"
           element={<ProductDetails data={items} addtocart={addtocart} />}
         ></Route>
         <Route path="/login" element={<SignUp />}></Route>
+        <Route path="/logout" element={<SignUp />}></Route>
         <Route path="/cart" element={<Cart cart={cartitems}></Cart>} />
       </Routes>
 
