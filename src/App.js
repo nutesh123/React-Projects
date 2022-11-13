@@ -74,7 +74,6 @@ const App = (props) => {
               <Link to="/about">About us</Link>
               <Link to="/contact">Contact Us</Link>
             </div>
-
             <Link to='/store' onClick={changestate1}> store </Link>
             {show && <Link to="/cart">Cart</Link>}
             <Link to="/logout"  onClick={logouthandler} className="navbar__cart-logout" >Logout</Link>
