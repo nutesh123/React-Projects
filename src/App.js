@@ -8,8 +8,9 @@ import ContactUs from "./components/HEADER/ContactUs";
 import ProductPage from "./components/store/ProductsPage";
 import ProductDetails from "./components/store/ProductDetails";
 import SignUp from "./components/Login&logout/SignUp";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Cart from "./components/Cart/Cart";
+import RedirectLogin from "./components/Login&logout/Redirect-Login";
 
 const App = (props) => {
 
@@ -66,7 +67,7 @@ const App = (props) => {
    
   return (
     <div>
-        {!isLoggedIn && 
+        {isLoggedIn && 
           <div  className="navbar1">
             <div  onClick={changestate} className="navbar1">
               <Link to="/">home</Link>
@@ -76,26 +77,18 @@ const App = (props) => {
 
             <Link to='/store' onClick={changestate1}> store </Link>
             {show && <Link to="/cart">Cart</Link>}
-            {/* <button onClick={logouthandler} className="navbar__cart-logout">LogOut</button> */}
             <Link to="/logout"  onClick={logouthandler} className="navbar__cart-logout" >Logout</Link>
               </div> 
               }
               {!isLoggedIn && <Link to='/login' className="navbar__cart-login">LogIn</Link>}
-            {/* <div className="navbar__cart">
-              {!isLoggedIn && <Link to='/login' className="navbar__cart-login">LogIn</Link>}
-              <Link to="/logout" className="navbar__cart-logout">Logout</Link>
-              {show && <Link to="/cart">Cart</Link>}
-            </div> */}
+
        
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/about" element={<About></About>}></Route>
         <Route path="/contact" element={<ContactUs />}></Route>
-        {/* <Route path="/store" element={ isLoggedIn ? <ProductPage itemlist={items} addtocart={addtocart} />:<Redirect to="/login"/>}
-        ></Route> */}
-        <Route
-          path="/store/:urlName"
-          element={<ProductDetails data={items} addtocart={addtocart} />}
+         <Route path="/store" element={isLoggedIn ? <ProductPage itemlist={items} addtocart={addtocart}/>:<SignUp></SignUp>}/>
+        <Route path="/store/:urlName" element={<ProductDetails data={items} addtocart={addtocart} />}
         ></Route>
         <Route path="/login" element={<SignUp />}></Route>
         <Route path="/logout" element={<SignUp />}></Route>
@@ -106,3 +99,11 @@ const App = (props) => {
   )
 };
 export default App;
+
+
+
+  {/* <Route path="/store" element={ <RedirectLogin  itemlist={items} addtocart={addtocart} isLoggedIn={isLoggedIn}/>}
+        ></Route>  */}
+
+ {/* <Route path="/store" element={<ProductPage itemlist={items} addtocart={addtocart} />}
+        ></Route>  */}

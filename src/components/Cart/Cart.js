@@ -2,14 +2,34 @@ import { ReactDOM } from 'react'
 import React from 'react'
 import styles from'./cart.module.css'
 import App from '../../App'
+import { useState ,useEffect } from 'react'
 
 const Cart =(props)=>{
+
+  const [serverdata, setserverdata] = useState([]);
+
+  useEffect(()=>{
+
+    fetch("https://e-commers-project-9b5cf-default-rtdb.asia-southeast1.firebasedatabase.app/list.json")
+    .then(Response=>Response.json()).then(jsondata =>{
     
-            //  console.log(`inside Cart`, props.cart);
+      const propertyValues=Object.values(jsondata);
+      
+      setserverdata(propertyValues);
+      console.log(propertyValues)
+             }).catch((err)=>
+             {
+            console.log(err);  })
+
+  },[])
+ 
+    
+              console.log(`inside Cart`, props.cart);
   return (
     <div className={styles.cartCss}>
+      {serverdata.title}
      <h1>Cart Item</h1>
-      {props.cart.map((product) => {
+      {serverdata.map((product) => {
         return(
        <div>
           <img src={product.imageUrl}/> 
