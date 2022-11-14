@@ -1,63 +1,33 @@
+import { Fragment, useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Header from './components/HEADER/Header';
-import Music from './components/shopping item/Music';
-import BottumHeader from './components/HEADER/BottumHeader';
-import Merch from './components/shopping item/Merch';
-import Cart from './components/HEADER/Cart';
-import { useState } from 'react';
-import About from './components/HEADER/About';
+import Layout from './components/Layout/Layout';
+import UserProfile from './components/Profile/UserProfile';
+import AuthPage from './pages/AuthPage';
+import HomePage from './pages/HomePage';
+import AuthContext from './store/auth-context';
 
-const App = (props)=>{
+function App() {
+  const authCtx = useContext(AuthContext);
 
-  const [items,setitems]=useState([
-    {
-      title: 'Colors', 
-      price: 100,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png', 
-      },
-      { 
-      title: 'Black and white Colors',
-      price: 50,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-      },
-      {
-      title: 'Yellow and Black Colors', 
-      price: 70,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-      },
-      {
-      title: 'Blue Color',
-      price: 100,
-      imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-      }
-  ])
-
-
-  const [cart,setcart]=useState([]);
-  const addtocart=(data)=>{
-    setcart([...cart,{...data , quantity : 1}])
-  }
-
-
-  const [showCart, setShowCart] = useState(false)
- const handleshow=(value)=>{
-  setShowCart(value)
- }
-  
-  return(
-    <div>
-<Header count={cart.length}
-handleshow={handleshow}></Header>
-
-{
-showCart ? 
-< Cart  cart={cart} ></Cart> :
-<Music itemlist={items} addtocart={addtocart}/>
+  return (
+    <Fragment>
+    <Layout>
+      <Routes>
+        <Route path='/' exact  element={ <HomePage />}>
+        </Route>
+        {!authCtx.isLoggedIn && (
+          <Route path='/auth' element={<AuthPage />}>
+          </Route>
+        )}
+        <Route path='/profile' element={ authCtx.isLoggedIn ? <UserProfile /> : < Navigate to='/auth' />}>
+        </Route>
+        <Route path='*' element={ < Navigate to='/' />}>
+        </Route>
+      </Routes>
+    </Layout>
+    </Fragment>
+  );
 }
 
-<button>See the Cart </button>
-<BottumHeader></BottumHeader>
-    </div>
-  )
-}
-export default App ;
+export default App;
